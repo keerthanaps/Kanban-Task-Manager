@@ -4,14 +4,21 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import useBoardStore from "../store/useBoardStore";
 import SortableTask from "./SortableTask";
 import DroppableColumn from "./DroppableColumn";
+import { AnimatePresence } from "framer-motion";
+import { motion } from 'framer-motion';
+
 
 const Column = ({ column }) => {
   const tasks = useBoardStore((state) => state.tasks);
 
   return (
 <DroppableColumn columnId={column.id}>
-  <div key={column.id} className="bg-white rounded-xl shadow p-4 min-h-[200px]">
-    <h2 className="text-xl font-semibold mb-4">{column.title}</h2>
+<motion.div
+  className="bg-white rounded-xl shadow p-4 min-h-[200px] flex-1 mb-4 md:mb-0"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}>
+        <h2 className="text-xl font-semibold mb-4">{column.title}</h2>
     <SortableContext
       items={column.taskIds.map((taskId) => `${column.id}:${taskId}`)}
       strategy={verticalListSortingStrategy}
@@ -24,6 +31,7 @@ const Column = ({ column }) => {
           Drop here
         </div>
       )}
+      <AnimatePresence>
       {column.taskIds.map((taskId) => {
         const task = tasks[taskId];
         if (!task) return null;
@@ -35,8 +43,9 @@ const Column = ({ column }) => {
           />
         );
       })}
+      </AnimatePresence>
     </SortableContext>
-  </div>
+  </motion.div>
 </DroppableColumn>
 
 

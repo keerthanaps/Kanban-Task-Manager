@@ -44,13 +44,17 @@ const Board = () => {
 };
 
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {Object.values(columns).map((column) => (
-          <Column key={column.id} column={column} />
-        ))}
+   <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+<div className="flex flex-col md:flex-row gap-4 w-full px-2 md:px-6 py-4 md:max-w-screen-xl md:mx-auto">
+    {Object.values(columns).map((column) => (
+      <div key={column.id} className="flex-1 min-w-0">
+        <Column column={column} />
       </div>
-    </DndContext>
+    ))}
+  </div>
+</DndContext>
+
+
   );
 };
 

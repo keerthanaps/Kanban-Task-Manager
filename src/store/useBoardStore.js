@@ -1,81 +1,92 @@
-import { create } from 'zustand';
+import { create } from "zustand";
+import { nanoid } from "nanoid";
 
 const useBoardStore = create((set) => ({
+  // 🔹 All tasks stored here
+  tasks: {},
+
+  // 🔹 Columns with associated task IDs
   columns: {
-    'todo': {
-      id: 'todo',
-      title: 'To Do',
+    todo: {
+      id: "todo",
+      title: "To Do",
       taskIds: [],
     },
-    'inprogress': {
-      id: 'inprogress',
-      title: 'In Progress',
+    inprogress: {
+      id: "inprogress",
+      title: "In Progress",
       taskIds: [],
     },
-    'done': {
-      id: 'done',
-      title: 'Done',
+    done: {
+      id: "done",
+      title: "Done",
       taskIds: [],
     },
   },
-  tasks: {},
-  addTask: (columnId, task) => {
-    const id = crypto.randomUUID();
+
+  // ✅ Add Task with Priority
+  addTask: (columnId, title, priority = "medium") => {
+    const id = nanoid();
+    const newTask = { id, title, priority };
+
     set((state) => {
-      const updatedTasks = { ...state.tasks, [id]: { id, ...task } };
-      const updatedColumn = {
-        ...state.columns[columnId],
-        taskIds: [...state.columns[columnId].taskIds, id],
-      };
+      const column = state.columns[columnId];
+
+      if (!column) {
+        console.error(`❌ Invalid columnId: ${columnId}`);
+        return state; // Prevent crash
+      }
+
       return {
-        tasks: updatedTasks,
+        tasks: {
+          ...state.tasks,
+          [id]: newTask,
+        },
         columns: {
           ...state.columns,
-          [columnId]: updatedColumn,
+          [columnId]: {
+            ...column,
+            taskIds: [id, ...column.taskIds],
+          },
         },
       };
     });
   },
- moveTask: (taskId, sourceColumnId, targetColumnId, targetIndex) => {
-  set((state) => {
-    const sourceColumn = state.columns[sourceColumnId];
-    const targetColumn = state.columns[targetColumnId];
 
-    let newSourceTaskIds = [...sourceColumn.taskIds];
-    let newTargetTaskIds = [...targetColumn.taskIds];
+  // ✅ Move Task across or within columns
+  moveTask: (taskId, sourceColumnId, targetColumnId, targetIndex) => {
+    set((state) => {
+      const sourceTaskIds = [...state.columns[sourceColumnId].taskIds];
+      const targetTaskIds = [...state.columns[targetColumnId].taskIds];
 
-    // Remove task from source
-    newSourceTaskIds = newSourceTaskIds.filter((id) => id !== taskId);
-
-    // Adjust target index if same column and task was before the target index
-    if (sourceColumnId === targetColumnId) {
-      const fromIndex = sourceColumn.taskIds.indexOf(taskId);
-      if (fromIndex < targetIndex) {
-        targetIndex--; // because we removed the item earlier
+      // Remove task from source column
+      const fromIndex = sourceTaskIds.indexOf(taskId);
+      if (fromIndex > -1) {
+        sourceTaskIds.splice(fromIndex, 1);
       }
-      newTargetTaskIds = [...newSourceTaskIds];
-    }
 
-    // Insert into target
-    newTargetTaskIds.splice(targetIndex, 0, taskId);
+      // Insert task into target column
+      if (targetIndex >= 0) {
+        targetTaskIds.splice(targetIndex, 0, taskId);
+      } else {
+        targetTaskIds.push(taskId);
+      }
 
-    return {
-      columns: {
-        ...state.columns,
-        [sourceColumnId]: {
-          ...sourceColumn,
-          taskIds: newSourceTaskIds,
+      return {
+        columns: {
+          ...state.columns,
+          [sourceColumnId]: {
+            ...state.columns[sourceColumnId],
+            taskIds: sourceTaskIds,
+          },
+          [targetColumnId]: {
+            ...state.columns[targetColumnId],
+            taskIds: targetTaskIds,
+          },
         },
-        [targetColumnId]: {
-          ...targetColumn,
-          taskIds: newTargetTaskIds,
-        },
-      },
-    };
-  });
-}
-
-
+      };
+    });
+  },
 }));
 
 export default useBoardStore;

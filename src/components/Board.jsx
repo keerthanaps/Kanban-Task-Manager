@@ -1,4 +1,3 @@
-// components/Board.js
 import React from "react";
 import {
   DndContext,
@@ -17,46 +16,47 @@ const Board = () => {
   const sensors = useSensors(useSensor(PointerSensor));
 
   const onDragEnd = (event) => {
-  const { active, over } = event;
-  if (!over) return;
+    const { active, over } = event;
+    if (!over) return;
 
-  const [sourceColumnId, sourceTaskId] = active.id.split(":");
+    const [sourceColumnId, sourceTaskId] = active.id.split(":");
 
-  let targetColumnId, targetTaskId;
+    let targetColumnId, targetTaskId;
 
-  if (over.id.includes(":")) {
-    // Dropped on another task
-    [targetColumnId, targetTaskId] = over.id.split(":");
-  } else {
-    // Dropped on empty column
-    targetColumnId = over.id;
-    targetTaskId = null;
-  }
+    if (over.id.includes(":")) {
+      // Dropped on another task
+      [targetColumnId, targetTaskId] = over.id.split(":");
+    } else {
+      // Dropped on empty column
+      targetColumnId = over.id;
+      targetTaskId = null;
+    }
 
-  if (active.id === over.id) return;
+    if (active.id === over.id) return;
 
-  const targetColumn = columns[targetColumnId];
-  const targetIndex = targetTaskId
-    ? targetColumn.taskIds.indexOf(targetTaskId)
-    : 0;
+    const targetColumn = columns[targetColumnId];
+    const targetIndex = targetTaskId
+      ? targetColumn.taskIds.indexOf(targetTaskId)
+      : 0;
 
-  moveTask(sourceTaskId, sourceColumnId, targetColumnId, targetIndex);
-};
+    moveTask(sourceTaskId, sourceColumnId, targetColumnId, targetIndex);
+  };
 
   return (
-   <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-<div className="flex flex-col md:flex-row gap-4 w-full px-2 md:px-6 py-4 md:max-w-screen-xl md:mx-auto">
-    {Object.values(columns).map((column) => (
-      <div key={column.id} className="flex-1 min-w-0">
-        <Column column={column} />
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={onDragEnd}
+    >
+      <div className="flex flex-col md:flex-row gap-4 w-full px-2 md:px-6 py-4 md:max-w-screen-xl md:mx-auto">
+        {Object.values(columns).map((column) => (
+          <div key={column.id} className="flex-1 min-w-0">
+            <Column column={column} />
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-</DndContext>
-
-
+    </DndContext>
   );
 };
-
 
 export default Board;

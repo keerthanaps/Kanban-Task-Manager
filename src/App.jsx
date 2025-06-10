@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Board from "./components/Board";
 import AddTask from "./components/AddTask";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="min-h-screen w-screen flex flex-col bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+<div className="min-h-screen w-screen flex flex-col bg-gray-100 dark:bg-gray-900">
       <Header />
       
       <main className="flex-grow py-6 px-4 flex justify-center">

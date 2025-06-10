@@ -1,33 +1,35 @@
-import { useState } from "react";
+// components/AddTask.jsx
+import React, { useState } from "react";
 import useBoardStore from "../store/useBoardStore";
 
-const AddTask = () => {
-  const [taskTitle, setTaskTitle] = useState("");
+function AddTask({ columnId }) {
+  const [task, setTask] = useState("");
   const addTask = useBoardStore((state) => state.addTask);
 
-  const handleAdd = () => {
-    if (taskTitle.trim() === "") return;
-    addTask("todo", { title: taskTitle });
-    setTaskTitle("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (task.trim() === "") return;
+    addTask(columnId, task.trim());
+    setTask("");
   };
 
   return (
-    <div className="flex gap-2 mb-6 justify-center">
+    <form onSubmit={handleSubmit} className="flex items-center justify-center gap-2 mb-6 bg-white dark:bg-gray-700 text-black dark:text-white ">
       <input
         type="text"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
         placeholder="Enter new task..."
-        className="p-2 rounded border border-gray-300 w-2/3"
-        value={taskTitle}
-        onChange={(e) => setTaskTitle(e.target.value)}
+        className="border rounded px-3 py-2 w-64"
       />
       <button
-        onClick={handleAdd}
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        type="submit"
+        className="bg-violet-600 text-white px-4 py-2 rounded hover:bg-violet-700"
       >
         Add
       </button>
-    </div>
+    </form>
   );
-};
+}
 
 export default AddTask;

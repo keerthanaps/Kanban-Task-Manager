@@ -1,3 +1,4 @@
+// components/Board.jsx
 import React from "react";
 import {
   DndContext,
@@ -43,12 +44,8 @@ const Board = () => {
   };
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={onDragEnd}
-    >
-      <div className="flex flex-col md:flex-row gap-4 w-full px-2 md:px-6 py-4 md:max-w-screen-xl md:mx-auto">
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+      <div className="flex flex-col md:flex-row justify-center md:justify-between gap-4 w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 py-6  ">
         {Object.values(columns).map((column) => (
           <div key={column.id} className="flex-1 min-w-0">
             <Column column={column} />

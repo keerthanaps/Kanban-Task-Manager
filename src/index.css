@@ -56,6 +56,10 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 
 @media (prefers-color-scheme: light) {
   /* :root {

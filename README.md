@@ -1,5 +1,5 @@
 
-# 🧠 Kanban Task Manager
+#  Kanban Task Manager
 
 A **drag-and-drop task management web app** built with **React**, **Zustand**, and **@dnd-kit**, with support for **dark mode**, **PWA installability**, **localStorage persistence**, **due date indicators**, and **tag-based task categorization**.
 
@@ -10,19 +10,19 @@ A **drag-and-drop task management web app** built with **React**, **Zustand**, a
 
 | Light Mode | Dark Mode | Mobile Responsive |
 |------------|-----------|-------------------|
-| ![light](#) | ![dark](#) | ![mobile](#) | <!-- Optional: Add image links -->
+| ![light](./assets/ss-lightmode.png) | ![dark](./assets/ss-darkmode.png) | ![mobile](./assets/ss-mobile.png) | <!-- Optional: Add image links -->
 
 ## 🚀 Features
 
-✅ **Drag and Drop** – Smooth DnD using `@dnd-kit`  
-✅ **LocalStorage Sync** – Tasks persist on reload  
-✅ **Add/Delete Tasks** – Manage tasks in multiple columns  
-✅ **Tags + Color Labels** – Add contextual color-coded tags  
-✅ **Due Dates + Urgency Indicators** – Colored badges (🔴 Overdue, 🟡 Today, 🟢 Upcoming)  
-✅ **Dark Mode Toggle** – Switch themes (persists using `localStorage`)  
-✅ **Responsive Design** – Works well on mobile & desktop  
-✅ **PWA Support** – Installable like a native app  
-✅ **Task Search & Tag Filter** – Quickly find or group tasks (if implemented)
+ **Drag and Drop** – Smooth DnD using `@dnd-kit`  
+ **LocalStorage Sync** – Tasks persist on reload  
+ **Add/Delete Tasks** – Manage tasks in multiple columns  
+ **Tags + Color Labels** – Add contextual color-coded tags  
+ **Due Dates + Urgency Indicators** – Colored badges (🔴 Overdue, 🟡 Today, 🟢 Upcoming)  
+ **Dark Mode Toggle** – Switch themes (persists using `localStorage`)  
+ **Responsive Design** – Works well on mobile & desktop  
+ **PWA Support** – Installable like a native app  
+ **Task Search & Tag Filter** – Quickly find or group tasks (if implemented)
 
 ## 🛠️ Tech Stack
 
@@ -53,7 +53,7 @@ src/
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/kanban-task-manager.git
+git clone https://github.com/keerthanaps/Kanban-Task-Manager
 cd kanban-task-manager
 
 # Install dependencies
@@ -75,7 +75,7 @@ You can deploy the `dist/` folder to:
 - **GitHub Pages**
 - **Firebase Hosting**
 
-> ⚙️ PWA support is auto-configured via `vite-plugin-pwa`.
+> PWA support is auto-configured via `vite-plugin-pwa`.
 
 ## 🧠 What I Learned
 

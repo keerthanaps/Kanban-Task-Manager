@@ -16,7 +16,7 @@ const Column = ({ column }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">{column.title}</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">{column.title}</h2>
 
         <SortableContext
           items={column.taskIds.map((taskId) => `${column.id}:${taskId}`)}
@@ -24,7 +24,7 @@ const Column = ({ column }) => {
         >
           {column.taskIds.length === 0 && (
             <div
-              className="p-4 border-2 border-dashed border-blue-300 rounded-lg text-center text-blue-400"
+              className="p-4 border-2 border-dashed border-blue-300 rounded-lg text-center text-blue-400 dark:text-blue-200"
               style={{ minHeight: "80px" }}
             >
               Drop here

@@ -1,5 +1,6 @@
 // components/Board.jsx
 import React from "react";
+import FilterBar from "./FilterBar";
 import {
   DndContext,
   PointerSensor,

@@ -1,73 +1,107 @@
 import { create } from "zustand";
-import { nanoid } from "nanoid";
 
-const useBoardStore = create((set) => ({
-  tasks: {},
+const LOCAL_STORAGE_KEY = "kanban-board-state";
+
+const useBoardStore = create((set, get) => ({
   columns: {
     todo: { id: "todo", title: "To Do", taskIds: [] },
-    inprogress: { id: "inprogress", title: "In Progress", taskIds: [] },
+    inProgress: { id: "inProgress", title: "In Progress", taskIds: [] },
     done: { id: "done", title: "Done", taskIds: [] },
   },
+  tasks: {},
+  tagFilter: null,
+  searchQuery: "",
 
-  addTask: (columnId, title, priority = "medium") => {
-  const id = nanoid();
-  const newTask = { id, title, priority };
+  setTagFilter: (tag) => set({ tagFilter: tag }),
+  setSearchQuery: (query) => set({ searchQuery: query }),
 
-  set((state) => {
-    const column = state.columns[columnId];
-    if (!column) {
-      console.error(`❌ Invalid columnId: ${columnId}`);
-      return state;
-    }
-
-    return {
-      tasks: {
-        ...state.tasks,
-        [id]: newTask, // ✅ Store the new task
-      },
-      columns: {
-        ...state.columns,
-        [columnId]: {
-          ...column,
-          taskIds: [id, ...column.taskIds], // ✅ Add task ID to column
-        },
-      },
-    };
-  });
-},
-
-
-  moveTask: (taskId, sourceColumnId, targetColumnId, targetIndex) => {
+  addTask: (columnId, title, tag = "", tagColor = "#6366f1", dueDate = "") => {
+    const id = Date.now().toString();
     set((state) => {
-      const sourceTaskIds = [...state.columns[sourceColumnId].taskIds];
-      const targetTaskIds = [...state.columns[targetColumnId].taskIds];
-
-      const fromIndex = sourceTaskIds.indexOf(taskId);
-      if (fromIndex > -1) {
-        sourceTaskIds.splice(fromIndex, 1);
-      }
-
-      if (targetIndex >= 0) {
-        targetTaskIds.splice(targetIndex, 0, taskId);
-      } else {
-        targetTaskIds.push(taskId);
-      }
-
-      return {
-        columns: {
-          ...state.columns,
-          [sourceColumnId]: {
-            ...state.columns[sourceColumnId],
-            taskIds: sourceTaskIds,
-          },
-          [targetColumnId]: {
-            ...state.columns[targetColumnId],
-            taskIds: targetTaskIds,
-          },
-        },
+      const newTask = { id, title, tag, tagColor, dueDate };
+      const column = state.columns[columnId];
+      const updatedColumn = {
+        ...column,
+        taskIds: [...column.taskIds, id],
       };
+      const updatedState = {
+        ...state,
+        tasks: { ...state.tasks, [id]: newTask },
+        columns: { ...state.columns, [columnId]: updatedColumn },
+      };
+      saveState(updatedState);
+      return updatedState;
     });
   },
+
+  deleteTask: (columnId, taskId) => {
+    set((state) => {
+      const updatedTasks = { ...state.tasks };
+      delete updatedTasks[taskId];
+      const column = state.columns[columnId];
+      const updatedColumn = {
+        ...column,
+        taskIds: column.taskIds.filter((id) => id !== taskId),
+      };
+      const updatedState = {
+        ...state,
+        tasks: updatedTasks,
+        columns: { ...state.columns, [columnId]: updatedColumn },
+      };
+      saveState(updatedState);
+      return updatedState;
+    });
+  },
+
+  moveTask: (taskId, fromColumnId, toColumnId, newIndex) => {
+    const state = get();
+    const fromColumn = state.columns[fromColumnId];
+    const toColumn = state.columns[toColumnId];
+
+    if (!fromColumn || !toColumn) {
+      console.error("Invalid column ID during moveTask:", {
+        fromColumnId,
+        toColumnId,
+      });
+      return;
+    }
+
+    const newFromTaskIds = fromColumn.taskIds.filter((id) => id !== taskId);
+    const newToTaskIds = [...toColumn.taskIds];
+    newToTaskIds.splice(newIndex, 0, taskId);
+
+    const updatedState = {
+      ...state,
+      columns: {
+        ...state.columns,
+        [fromColumnId]: { ...fromColumn, taskIds: newFromTaskIds },
+        [toColumnId]: { ...toColumn, taskIds: newToTaskIds },
+      },
+    };
+
+    saveState(updatedState);
+    set(updatedState);
+  },
+
+  setInitialState: (stateFromStorage) => {
+    set(stateFromStorage);
+  },
 }));
+
+// Load from localStorage if available
+const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+if (savedState) {
+  try {
+    const parsed = JSON.parse(savedState);
+    useBoardStore.getState().setInitialState(parsed);
+  } catch (e) {
+    console.error("Failed to parse saved board state:", e);
+  }
+}
+
+function saveState(state) {
+  const { tasks, columns } = state;
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ tasks, columns }));
+}
 
 export default useBoardStore;

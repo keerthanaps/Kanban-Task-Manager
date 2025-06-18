@@ -1,12 +1,93 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🧠 Kanban Task Manager
 
-Currently, two official plugins are available:
+A **drag-and-drop task management web app** built with **React**, **Zustand**, and **@dnd-kit**, with support for **dark mode**, **PWA installability**, **localStorage persistence**, **due date indicators**, and **tag-based task categorization**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔥 Live Demo  
+[Click here to try the live version](#) <!-- Replace with your deployed URL -->
 
-## Expanding the ESLint configuration
+## 📸 Screenshots
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Light Mode | Dark Mode | Mobile Responsive |
+|------------|-----------|-------------------|
+| ![light](#) | ![dark](#) | ![mobile](#) | <!-- Optional: Add image links -->
+
+## 🚀 Features
+
+✅ **Drag and Drop** – Smooth DnD using `@dnd-kit`  
+✅ **LocalStorage Sync** – Tasks persist on reload  
+✅ **Add/Delete Tasks** – Manage tasks in multiple columns  
+✅ **Tags + Color Labels** – Add contextual color-coded tags  
+✅ **Due Dates + Urgency Indicators** – Colored badges (🔴 Overdue, 🟡 Today, 🟢 Upcoming)  
+✅ **Dark Mode Toggle** – Switch themes (persists using `localStorage`)  
+✅ **Responsive Design** – Works well on mobile & desktop  
+✅ **PWA Support** – Installable like a native app  
+✅ **Task Search & Tag Filter** – Quickly find or group tasks (if implemented)
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React + Tailwind CSS + Framer Motion  
+- **State Management**: Zustand  
+- **Drag and Drop**: @dnd-kit  
+- **PWA**: Vite + `vite-plugin-pwa`  
+- **Icons**: Lucide React  
+
+## 🧩 Folder Structure (Simplified)
+```
+src/
+├── components/
+│   ├── AddTask.jsx
+│   ├── Board.jsx
+│   ├── Column.jsx
+│   ├── DroppableColumn.jsx
+│   ├── Header.jsx
+│   ├── Footer.jsx
+│   └── SortableTask.jsx
+├── store/
+│   └── useBoardStore.js
+├── App.jsx
+└── main.jsx
+```
+
+## 🖥️ Setup Instructions
+
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/kanban-task-manager.git
+cd kanban-task-manager
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+## 📦 Build & Deploy
+
+```bash
+npm run build
+```
+
+You can deploy the `dist/` folder to:
+- **Netlify**
+- **Vercel**
+- **GitHub Pages**
+- **Firebase Hosting**
+
+> ⚙️ PWA support is auto-configured via `vite-plugin-pwa`.
+
+## 🧠 What I Learned
+
+- Efficient state management using Zustand  
+- Building accessible drag-and-drop UIs with @dnd-kit  
+- Creating responsive and theme-aware UIs with Tailwind  
+- Implementing a Progressive Web App (PWA)  
+- Designing with UX in mind using urgency indicators and color-coded tags  
+
+## 📌 Future Enhancements
+
+- 🧠 Task editing functionality  
+- 🗂 Tag-based filters and live search  
+- 📊 Productivity analytics (time per task, completed tasks graph)  
+- 🔔 Reminder notifications (via Notification API or email)

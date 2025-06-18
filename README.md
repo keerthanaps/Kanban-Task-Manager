@@ -3,16 +3,16 @@
 
 A **drag-and-drop task management web app** built with **React**, **Zustand**, and **@dnd-kit**, with support for **dark mode**, **PWA installability**, **localStorage persistence**, **due date indicators**, and **tag-based task categorization**.
 
-## 🔥 Live Demo  
-[Click here to try the live version](#) <!-- Replace with your deployed URL -->
+##  Live Demo  
+[Click here to try the live version](http://kanbantaskmanagerkeerthana.netlify.app/) <!-- Replace with your deployed URL -->
 
-## 📸 Screenshots
+##  Screenshots
 
 | Light Mode | Dark Mode | Mobile Responsive |
 |------------|-----------|-------------------|
-| ![light](./assets/ss-lightmode.png) | ![dark](./assets/ss-darkmode.png) | ![mobile](./assets/ss-mobile.png) | <!-- Optional: Add image links -->
+| ![light](./src/assets/ss-lightmode.png) | ![dark](./src/assets/ss-darkmode.png) | ![mobile](./src/assets/ss-mobile.png) | <!-- Optional: Add image links -->
 
-## 🚀 Features
+##  Features
 
  **Drag and Drop** – Smooth DnD using `@dnd-kit`  
  **LocalStorage Sync** – Tasks persist on reload  
@@ -24,7 +24,7 @@ A **drag-and-drop task management web app** built with **React**, **Zustand**, a
  **PWA Support** – Installable like a native app  
  **Task Search & Tag Filter** – Quickly find or group tasks (if implemented)
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Frontend**: React + Tailwind CSS + Framer Motion  
 - **State Management**: Zustand  
@@ -32,7 +32,7 @@ A **drag-and-drop task management web app** built with **React**, **Zustand**, a
 - **PWA**: Vite + `vite-plugin-pwa`  
 - **Icons**: Lucide React  
 
-## 🧩 Folder Structure (Simplified)
+##  Folder Structure (Simplified)
 ```
 src/
 ├── components/
@@ -49,7 +49,7 @@ src/
 └── main.jsx
 ```
 
-## 🖥️ Setup Instructions
+##  Setup Instructions
 
 ```bash
 # Clone the repo
@@ -63,7 +63,7 @@ npm install
 npm run dev
 ```
 
-## 📦 Build & Deploy
+##  Build & Deploy
 
 ```bash
 npm run build
@@ -77,7 +77,7 @@ You can deploy the `dist/` folder to:
 
 > PWA support is auto-configured via `vite-plugin-pwa`.
 
-## 🧠 What I Learned
+##  What I Learned
 
 - Efficient state management using Zustand  
 - Building accessible drag-and-drop UIs with @dnd-kit  
@@ -85,9 +85,9 @@ You can deploy the `dist/` folder to:
 - Implementing a Progressive Web App (PWA)  
 - Designing with UX in mind using urgency indicators and color-coded tags  
 
-## 📌 Future Enhancements
+##  Future Enhancements
 
-- 🧠 Task editing functionality  
-- 🗂 Tag-based filters and live search  
-- 📊 Productivity analytics (time per task, completed tasks graph)  
-- 🔔 Reminder notifications (via Notification API or email)
+-  Task editing functionality  
+-  Tag-based filters and live search  
+-  Productivity analytics (time per task, completed tasks graph)  
+-  Reminder notifications (via Notification API or email)
